@@ -50,6 +50,13 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+
+  # added because 'be rails test' fails out of the box
+  # selenium-webdriver should include this but rails uses ~3.x and not the 4.0 release where this is fixed
+  # remove me once selenium-webdriver has a 4.0 release and rails updates their dependency
+  #
+  # See : https://github.com/rails/rails/issues/41502
+  gem 'rexml'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

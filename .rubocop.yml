@@ -1,0 +1,27 @@
+require: rubocop-rails
+inherit_gem:
+  prettier: rubocop.yml
+
+AllCops:
+    NewCops: enable
+    Exclude:
+      - Gemfile
+      - config/unicorn.rb
+      - db/**
+      - bin/*
+
+Style/ClassAndModuleChildren:
+    EnforcedStyle: compact
+
+Style/SymbolArray:
+    Enabled: false
+
+Style/Documentation:
+    Enabled: false
+
+Style/GlobalStdStream:
+    Enabled: false
+
+Rails/FilePath:
+    EnforcedStyle: arguments
+

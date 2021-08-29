@@ -1,0 +1,2 @@
+class Backmaker < ApplicationRecord
+end

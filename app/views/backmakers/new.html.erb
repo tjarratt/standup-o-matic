@@ -1,0 +1,10 @@
+<h1>Add new BackMaker</h1>
+
+<%= form_for(@backmaker) do |f| %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, autofocus: true %>
+
+  <%= f.submit :Save %>
+
+<% end %>

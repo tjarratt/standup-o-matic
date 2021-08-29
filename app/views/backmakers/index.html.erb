@@ -1,0 +1,15 @@
+<h1>BackMakers</h1>
+
+<% if @backmakers.empty? %>
+<p>There's no one here yet 😱</p>
+<% end %>
+
+<ul class="backmakers">
+<% @backmakers.each do |bm| %>
+<li><%= bm.name %></li>
+<% end %>
+</ol>
+
+<%= link_to 'Add new BackMaker', 
+              action: 'new' %>
+

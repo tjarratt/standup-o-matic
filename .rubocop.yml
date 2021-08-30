@@ -3,25 +3,25 @@ inherit_gem:
   prettier: rubocop.yml
 
 AllCops:
-    NewCops: enable
-    Exclude:
-      - Gemfile
-      - config/unicorn.rb
-      - db/**
-      - bin/*
+  NewCops: enable
+  Exclude:
+    - Gemfile
+    - config/unicorn.rb
+    - db/**
+    - bin/*
 
 Style/ClassAndModuleChildren:
-    EnforcedStyle: compact
+  EnforcedStyle: compact
 
 Style/SymbolArray:
-    Enabled: false
+  Enabled: false
 
 Style/Documentation:
-    Enabled: false
+  Enabled: false
 
 Style/GlobalStdStream:
-    Enabled: false
+  Enabled: false
 
 Rails/FilePath:
-    EnforcedStyle: arguments
+  EnforcedStyle: arguments
 

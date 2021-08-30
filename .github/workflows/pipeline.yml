@@ -17,7 +17,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 10.13.0
+          node-version: 14.17.5
+
       - name: Find yarn cache location
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -100,4 +101,7 @@ jobs:
 
       - name: Run end to end tests
         run: bundle exec rails test:system
+        env:
+          CI: true
+
 

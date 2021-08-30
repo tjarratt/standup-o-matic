@@ -9,6 +9,7 @@ AllCops:
     - config/unicorn.rb
     - db/**
     - bin/*
+    - vendor/bundle/**/*
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact

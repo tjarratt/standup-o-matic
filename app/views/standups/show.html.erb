@@ -1,0 +1,14 @@
+<h1>Ye Olde Daily Standup</h1>
+
+<% if @interestings %>
+<h2>Interestings</h2>
+<ul class='interestings'>
+
+<% @interestings.each do |interesting| %>
+<li><%= interesting.title %></li>
+<% end %>
+
+</ul>
+<% end %>
+
+<%= link_to 'Add new Interesting', new_standup_interesting_path('today') %>

@@ -6,4 +6,7 @@ Rails
   .routes
   .draw do
     resources :backmakers
+    resources :standups do
+      resources :interestings
+    end
   end

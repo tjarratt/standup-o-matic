@@ -12,5 +12,14 @@ class StandupsTest < ApplicationSystemTestCase
     click_on 'Save'
 
     assert_text 'Ursula'
+
+    visit '/standups/today'
+    click_on 'Add new Interesting'
+
+    fill_in 'Title', with: 'Banana poisoning'
+    fill_in 'Body', with: 'Eating 10 million bananas at once would kill you'
+    click_on 'Save'
+
+    assert_selector 'ul.interestings', text: 'Banana poisoning'
   end
 end

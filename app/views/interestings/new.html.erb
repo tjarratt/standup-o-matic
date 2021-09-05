@@ -1,0 +1,13 @@
+<h1>Add new Interesting</h1>
+
+<%= form_with url: standup_interestings_path do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title, autofocus: true %>
+
+  <%= f.label :body %>
+  <%= f.text_field :body %>
+
+  <%= f.submit :Save %>
+
+<% end %>

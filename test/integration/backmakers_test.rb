@@ -3,8 +3,6 @@ require 'test_helper'
 
 class BackMakersTest < ActionDispatch::IntegrationTest
   test 'add new backmakers to the squad' do
-    Backmaker.all.each(&:delete)
-
     get '/backmakers'
     assert_response :success
     assert_select 'p', text: "There's no one here yet 😱"

@@ -20,8 +20,6 @@ class StandupsTest < ActionDispatch::IntegrationTest
   end
 
   test 'adding a BackMaker adds it to the home page' do
-    Backmaker.all.each(&:delete)
-
     get '/standups/today'
     assert_response :success
     assert_select 'ul.backmakers li', count: 0

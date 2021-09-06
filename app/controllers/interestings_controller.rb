@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class InterestingsController < ApplicationController
   def new
     @interesting = Interesting.new

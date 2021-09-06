@@ -32,8 +32,4 @@ class StandupsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'ul.backmakers li', text: 'Ursula', count: 1
   end
-
-  test 'presenting standup flow' do
-    skip
-  end
 end

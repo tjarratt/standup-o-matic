@@ -8,5 +8,7 @@ Rails
     resources :backmakers
     resources :standups do
       resources :interestings
+
+      get 'present', action: 'present'
     end
   end

@@ -1,14 +1,30 @@
 <h1>Ye Olde Daily Standup</h1>
 
-<% if @interestings %>
-<h2>Interestings</h2>
-<ul class='interestings'>
+<section>
+  <h2>Interestings</h2>
+  
+  <% if @interestings %>
+  <ul class='interestings'>
+  
+  <% @interestings.each do |interesting| %>
+  <li><%= interesting.title %></li>
+  <% end %>
+  
+  </ul>
+  <% end %>
 
-<% @interestings.each do |interesting| %>
-<li><%= interesting.title %></li>
+  <%= link_to 'Add new Interesting', new_standup_interesting_path('today') %>
+</section>
+
+<section>
+<h2>La Team</h2>
+
+<% if @backmakers %>
+  <ul class='backmakers'>
+    <% @backmakers.each do |backmaker| %>
+	<li><%= backmaker.name %></li>
+    <% end %>
+  </ul
 <% end %>
+</section>
 
-</ul>
-<% end %>
-
-<%= link_to 'Add new Interesting', new_standup_interesting_path('today') %>

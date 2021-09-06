@@ -14,6 +14,9 @@ class StandupsTest < ApplicationSystemTestCase
     assert_text 'Ursula'
 
     visit '/standups/today'
+
+    assert_text 'Ursula'
+
     click_on 'Add new Interesting'
 
     fill_in 'Title', with: 'Banana poisoning'

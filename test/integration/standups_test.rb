@@ -2,7 +2,7 @@
 require 'test_helper'
 
 class StandupsTest < ActionDispatch::IntegrationTest
-  test "add a crusty interesting thing to today's standup" do
+  test 'adding an interesting adds it to the home page' do
     get '/standups/today'
     assert_response :success
     assert_select 'ul.interestings li', count: 0
@@ -17,6 +17,20 @@ class StandupsTest < ActionDispatch::IntegrationTest
 
     assert_equal '/standups/today', path
     assert_select 'ul.interestings li', text: 'UK Bees Act of 1980', count: 1
+  end
+
+  test 'adding a BackMaker adds it to the home page' do
+    Backmaker.all.each(&:delete)
+
+    get '/standups/today'
+    assert_response :success
+    assert_select 'ul.backmakers li', count: 0
+
+    Backmaker.new(name: 'Ursula').save
+
+    get '/standups/today'
+    assert_response :success
+    assert_select 'ul.backmakers li', text: 'Ursula', count: 1
   end
 
   test 'presenting standup flow' do

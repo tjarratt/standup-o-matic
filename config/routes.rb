@@ -5,6 +5,8 @@ Rails
   .application
   .routes
   .draw do
+    root to: redirect('standups/today')
+
     resources :backmakers
     resources :standups do
       resources :interestings

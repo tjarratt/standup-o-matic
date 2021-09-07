@@ -9,4 +9,11 @@ class StandupsController < ApplicationController
     @backmakers = Backmaker.all
     @interestings = Interesting.where(standup: Standup.last)
   end
+
+  def update
+    tomorrow = Standup.new(date_of: Date.tomorrow)
+    tomorrow.save
+
+    redirect_to action: 'show', id: 'today'
+  end
 end

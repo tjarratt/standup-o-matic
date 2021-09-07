@@ -30,4 +30,29 @@ class StandupsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'ul.backmakers li', text: 'Ursula', count: 1
   end
+
+  test 'presenting standup clears the board' do
+    Backmaker.new(name: 'Ursula').save
+    Interesting.new(
+      title: 'Killah Bees in your neighborhood',
+      standup: Standup.last
+    ).save
+
+    get '/standups/today/present'
+    assert_response :success
+    assert_select 'section.interestings', text: /1/
+    assert_select 'section.backmakers', text: /1/
+
+    put '/standups/today', params: { presented: true }
+    follow_redirect!
+    assert_response :success
+
+    assert_select 'ul.interestings', text: ''
+  end
+
+  test 'presenting standup for consecutive days' do
+    put '/standups/today', params: { presented: true }
+
+    assert_equal Date.tomorrow, Standup.last.date_of
+  end
 end

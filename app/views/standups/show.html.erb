@@ -24,8 +24,9 @@
     <% @backmakers.each do |backmaker| %>
 	<li><%= backmaker.name %></li>
     <% end %>
-  </ul
+  </ul>
 <% end %>
+
 </section>
 
 <%= button_to 'Allez let\'s go', '/standups/today/present', method: 'get' %>

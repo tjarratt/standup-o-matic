@@ -20,7 +20,7 @@ class StandupsTest < ApplicationSystemTestCase
 
     click_on 'Allez let\'s go'
     assert_selector 'section.interestings', text: "Interestings\n1"
-    assert_selector 'section.backmakers', text: "BackMakers\n2"
+    assert_selector 'section.backmakers', text: "La Team\n2"
     assert_selector '.spotlight'
 
     find('.interestings').click

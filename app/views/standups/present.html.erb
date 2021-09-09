@@ -1,17 +1,25 @@
 <script>
   window.interestings = <%= raw(@interestings.to_json) %>
   window.backmakers = <%= raw(@backmakers.to_json) %>
+  window.moment_of_zen = <%= raw(@moment_of_zen.to_json) %>
 </script>
 
 <h1 class="text-3xl sm:text-5xl lg:text-6xl leading-none font-extrabold text-gray-900 tracking-tight mb-8">
   Allez let's go, c'est l'heure
 </h1>
 
-<div class='grid grid-flow-col grid-cols-2 grid-rows-1 gap-4'>
+<div class='grid grid-flow-col grid-cols-3 grid-rows-1 gap-4'>
 <% if @interestings %>
   <section class="interestings max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
     <h2>Interestings</h2>
     <span><%= @interestings.count %></span>
+  </section>
+<% end %>
+
+
+<% if @moment_of_zen %>
+  <section class="zen max-w-lg bg-blue-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+    <h2>Moment of Zen</h2>
   </section>
 <% end %>
 

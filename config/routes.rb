@@ -10,6 +10,7 @@ Rails
     resources :backmakers
     resources :standups do
       resources :interestings
+      resources :moment_of_zen
 
       get 'present', action: 'present'
     end

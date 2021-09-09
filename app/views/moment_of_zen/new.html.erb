@@ -1,0 +1,13 @@
+<h1>Add Moment of Zen</h1>
+
+<%= form_with url: '/standups/today/moment_of_zen' do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title, autofocus: true %>
+
+  <%= f.label :body %>
+  <%= f.text_field :body %>
+
+  <%= f.submit :Save %>
+
+<% end %>

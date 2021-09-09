@@ -28,11 +28,26 @@ window.addEventListener("turbolinks:load", () => {
     spotlight.innerHTML = '';
     spotlight.appendChild(presentBackmakers(window.backmakers));
   });
+
+  document.querySelector('.zen').addEventListener('click', (e) => {
+    e.preventDefault();
+
+    spotlight.innerHTML = '';
+    spotlight.appendChild(presentMomentOfZen(window.moment_of_zen));
+  });
 });
 
 function presentInterestings(content) {
   return present(content, 'title');
 };
+
+function presentBackmakers(content) {
+  return present(content, 'name');
+};
+
+function presentMomentOfZen(content) {
+  return present([content], 'title');
+}
 
 function present(content, property) {
   const root = document.createElement('ul');
@@ -55,8 +70,4 @@ function present(content, property) {
 
   return root;
 }
-
-function presentBackmakers(content) {
-  return present(content, 'name');
-};
 

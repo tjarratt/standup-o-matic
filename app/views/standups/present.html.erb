@@ -3,27 +3,35 @@
   window.backmakers = <%= raw(@backmakers.to_json) %>
 </script>
 
-<h1>Allez let's go, c'est l'heure</h1>
+<h1 class="text-3xl sm:text-5xl lg:text-6xl leading-none font-extrabold text-gray-900 tracking-tight mb-8">
+  Allez let's go, c'est l'heure
+</h1>
 
+<div class='grid grid-flow-col grid-cols-2 grid-rows-1 gap-4'>
 <% if @interestings %>
-<section class=interestings>
-  <h2>Interestings</h2>
-  <span><%= @interestings.count %></span>
-</section>
+  <section class="interestings max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+    <h2>Interestings</h2>
+    <span><%= @interestings.count %></span>
+  </section>
 <% end %>
 
 <% if @backmakers %>
-<section class=backmakers>
-  <h2>BackMakers</h2>
-  <span><%= @backmakers.count %></span>
-</section>
+  <section class="backmakers max-w-lg bg-purple-300 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+    <h2>La Team</h2>
+    <span><%= @backmakers.count %></span>
+  </section>
 <% end %>
+
+</div>
 
 <% unless @backmakers or @interestings %>
 <span>Nothing to present. Are you <strong>sure</strong> you want to run standup ?<span>
 <% end %>
 
-<section class=spotlight>
+<section class='spotlight flex justify-center mt-10'>
 </section>
 
-<%= button_to 'Done', '/standups/today', method: 'put' %>
+<section class='absolute bottom-0 left-0 p-5'>
+  <%= button_to 'Standup is DONE', '/standups/today', method: 'put', form_class: 'inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+<section>
+

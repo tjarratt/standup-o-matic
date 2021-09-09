@@ -31,26 +31,32 @@ window.addEventListener("turbolinks:load", () => {
 });
 
 function presentInterestings(content) {
-  const root = document.createElement('ul');
-
-  content.forEach((item) => {
-    const listItem = document.createElement('li');
-    listItem.innerText = item.title;
-    root.appendChild(listItem);
-  });
-
-  return root;
+  return present(content, 'title');
 };
 
-function presentBackmakers(content) {
+function present(content, property) {
   const root = document.createElement('ul');
 
   content.forEach((item) => {
     const listItem = document.createElement('li');
-    listItem.innerText = item.name;
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    const span = document.createElement('span');
+    span.innerText = item[property];
+    span.classList.add('ml-3');
+
+    const p = document.createElement('p');
+    p.appendChild(checkbox);
+    p.appendChild(span);
+    listItem.append(p);
+
     root.appendChild(listItem);
   });
 
   return root;
+}
+
+function presentBackmakers(content) {
+  return present(content, 'name');
 };
 

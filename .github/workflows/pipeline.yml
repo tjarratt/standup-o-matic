@@ -147,4 +147,7 @@ jobs:
           heroku_app_name: growth-n-love-standup
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           region: eu
+        env:
+          BASIC_AUTH_USERNAME: ${{secrets.BASIC_AUTH_USERNAME}}
+          BASIC_AUTH_PASSWORD: ${{secrets.BASIC_AUTH_PASSWORD}}
 

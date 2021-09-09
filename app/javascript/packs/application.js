@@ -38,21 +38,21 @@ window.addEventListener("turbolinks:load", () => {
 });
 
 function presentInterestings(content) {
-  return present(content, 'title');
+  return present('interesting', content, 'title');
 };
 
 function presentBackmakers(content) {
-  return present(content, 'name');
+  return present('backmaker', content, 'name');
 };
 
 function presentMomentOfZen(content) {
-  return present([content], 'title');
+  return present('zen', [content], 'title');
 }
 
-function present(content, property) {
+function present(category, content, property) {
   const root = document.createElement('ul');
 
-  content.forEach((item) => {
+  content.forEach((item, index) => {
     const listItem = document.createElement('li');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -60,10 +60,11 @@ function present(content, property) {
     span.innerText = item[property];
     span.classList.add('ml-3');
 
-    const p = document.createElement('p');
-    p.appendChild(checkbox);
-    p.appendChild(span);
-    listItem.append(p);
+    const label = document.createElement('label');
+    label.for = category + '-' + String(index);
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    listItem.append(label);
 
     root.appendChild(listItem);
   });

@@ -100,6 +100,16 @@ function presentNextWeekMCInterface(name, team) {
       body: JSON.stringify({
         'backmaker': chosen_backmaker,
       })
+    }).then((_) => {
+      select.disabled = true;
+      submitButton.disabled = true;
+      checkboxes.forEach((ele) => {
+        ele.disabled = true;
+      });
+
+      const success = document.createElement('span');
+      span.innerText = "✅";
+      p.appendChild(success);
     });
   });
 

@@ -4,12 +4,14 @@ class StandupsController < ApplicationController
     @backmakers = Backmaker.all
     @interestings = Interesting.where(standup: Standup.last)
     @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
+    @has_moment_of_zen = Time.zone.today.friday?
   end
 
   def present
     @backmakers = Backmaker.all
     @interestings = Interesting.where(standup: Standup.last)
     @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
+    @has_moment_of_zen = Time.zone.today.friday?
   end
 
   def update

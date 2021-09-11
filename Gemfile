@@ -66,6 +66,8 @@ group :test do
   #
   # See : https://github.com/rails/rails/issues/41502
   gem 'rexml'
+
+  gem 'timecop'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

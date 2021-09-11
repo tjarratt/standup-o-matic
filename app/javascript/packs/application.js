@@ -15,21 +15,21 @@ ActiveStorage.start()
 window.addEventListener("turbolinks:load", () => {
   const spotlight = document.querySelector('.spotlight');
 
-  addClickListener('.interestings', (e) => {
+  addClickListener('#presentation #interestings', (e) => {
     e.preventDefault();
 
     spotlight.innerHTML = '';
     spotlight.appendChild(presentInterestings(window.interestings));
   });
 
-  addClickListener('.backmakers', (e) => {
+  addClickListener('#presentation #backmakers', (e) => {
     e.preventDefault();
 
     spotlight.innerHTML = '';
     spotlight.appendChild(presentBackmakers(window.backmakers));
   });
 
-  addClickListener('.zen', (e) => {
+  addClickListener('#presentation #zen', (e) => {
     e.preventDefault();
 
     spotlight.innerHTML = '';

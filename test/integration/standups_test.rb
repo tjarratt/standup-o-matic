@@ -40,8 +40,8 @@ class StandupsTest < ActionDispatch::IntegrationTest
 
     get '/standups/today/present'
     assert_response :success
-    assert_select 'section.interestings', text: /1/
-    assert_select 'section.backmakers', text: /1/
+    assert_select 'section#interestings', text: /1/
+    assert_select 'section#backmakers', text: /1/
 
     put '/standups/today', params: { presented: true }
     follow_redirect!

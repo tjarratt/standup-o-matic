@@ -15,27 +15,34 @@ ActiveStorage.start()
 window.addEventListener("turbolinks:load", () => {
   const spotlight = document.querySelector('.spotlight');
 
-  document.querySelector('.interestings').addEventListener('click', (e) => {
+  addClickListener('.interestings', (e) => {
     e.preventDefault();
 
     spotlight.innerHTML = '';
     spotlight.appendChild(presentInterestings(window.interestings));
   });
 
-  document.querySelector('.backmakers').addEventListener('click', (e) => {
+  addClickListener('.backmakers', (e) => {
     e.preventDefault();
 
     spotlight.innerHTML = '';
     spotlight.appendChild(presentBackmakers(window.backmakers));
   });
 
-  document.querySelector('.zen').addEventListener('click', (e) => {
+  addClickListener('.zen', (e) => {
     e.preventDefault();
 
     spotlight.innerHTML = '';
     spotlight.appendChild(presentMomentOfZen(window.moment_of_zen));
   });
 });
+
+function addClickListener(selector, callback) {
+  const element = document.querySelector(selector);
+  if (!element) return;
+
+  element.addEventListener('click', callback);
+}
 
 function presentInterestings(content) {
   return present('interesting', content, 'title');

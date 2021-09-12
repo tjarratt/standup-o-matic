@@ -29,6 +29,13 @@ window.addEventListener("turbolinks:load", () => {
     spotlight.appendChild(presentBackmakers(window.backmakers));
   });
 
+  addClickListener('#presentation #events', (e) => {
+    e.preventDefault();
+
+    spotlight.innerHTML = '';
+    spotlight.appendChild(presentEvents(window.events));
+  });
+
   addClickListener('#presentation #zen', (e) => {
     e.preventDefault();
 
@@ -51,6 +58,10 @@ function presentInterestings(content) {
 function presentBackmakers(content) {
   return present('backmaker', content, 'name');
 };
+
+function presentEvents(content) {
+  return present('event', content, 'label');
+}
 
 function presentMomentOfZen(content) {
   return present('zen', [content], 'title');

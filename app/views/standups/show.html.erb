@@ -11,13 +11,29 @@
   <ul class='interestings'>
   
   <% @interestings.each do |interesting| %>
-  <li><%= interesting.title %></li>
+    <li><%= interesting.title %></li>
   <% end %>
   
   </ul>
   <% end %>
 
   <%= link_to 'Add new Interesting', new_standup_interesting_path('today'), {class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6'} %>
+</section>
+
+<section id=events class="max-w-lg bg-yellow-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+  <h2 class='text-xl sm:text-3xml lg:text-4xml leading-none font-bold text-gray-800 tracking-tight mb-8'>Events</h2>
+
+  <% if @events %>
+  <ul class='events'>
+
+  <% @events.each do |event| %>
+    <li><%= event.title %></li>
+  <% end %>
+
+  </ul>
+  <% end %>
+
+  <%= link_to 'Add new Event', new_event_path, {class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6'} %>
 </section>
 
 <% if @has_moment_of_zen %>

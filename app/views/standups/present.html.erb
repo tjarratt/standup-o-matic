@@ -1,6 +1,7 @@
 <script>
   window.interestings = <%= raw(@interestings.to_json) %>
   window.backmakers = <%= raw(@backmakers.to_json) %>
+  window.events = <%= raw(make_presentable(@events).to_json) %>
   window.moment_of_zen = <%= raw(@moment_of_zen.to_json) %>
 </script>
 
@@ -16,17 +17,23 @@
   </section>
 <% end %>
 
-
-<% if @has_moment_of_zen && @moment_of_zen %>
-  <section id=zen class="max-w-lg bg-blue-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
-    <h2>Moment of Zen</h2>
-  </section>
-<% end %>
-
 <% if @backmakers %>
   <section id=backmakers class="max-w-lg bg-purple-300 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
     <h2>La Team</h2>
     <span><%= @backmakers.count %></span>
+  </section>
+<% end %>
+
+<% if @events %>
+  <section id=events class="max-w-lg bg-yellow-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+    <h2>Events</h2>
+    <span><%= @events.count %></span>
+  </section>
+<% end %>
+
+<% if @has_moment_of_zen && @moment_of_zen %>
+  <section id=zen class="max-w-lg bg-blue-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+    <h2>Moment of Zen</h2>
   </section>
 <% end %>
 

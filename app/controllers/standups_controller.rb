@@ -3,6 +3,7 @@ class StandupsController < ApplicationController
   def show
     @backmakers = Backmaker.all
     @interestings = Interesting.where(standup: Standup.last)
+    @events = Event.all
     @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
     @has_moment_of_zen = Time.zone.today.friday?
   end
@@ -10,6 +11,7 @@ class StandupsController < ApplicationController
   def present
     @backmakers = Backmaker.all
     @interestings = Interesting.where(standup: Standup.last)
+    @events = Event.all
     @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
     @has_moment_of_zen = Time.zone.today.friday?
   end

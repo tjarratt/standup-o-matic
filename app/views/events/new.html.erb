@@ -1,0 +1,13 @@
+<h1>Add new Event</h1>
+
+<%= form_with model: @event, url: events_path do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title, autofocus: true %>
+
+  <%= f.label :date %>
+  <%= f.date_select :date %>
+
+  <%= f.submit :Save %>
+
+<% end %>

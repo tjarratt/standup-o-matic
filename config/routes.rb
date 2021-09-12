@@ -8,6 +8,8 @@ Rails
     root to: redirect('standups/today')
 
     resources :backmakers
+    resources :events
+
     resources :standups do
       resources :interestings
       resources :moment_of_zen

@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_09_204318) do
+ActiveRecord::Schema.define(version: 2021_09_11_221846) do
   create_table 'backmakers', force: :cascade do |t|
     t.string 'name'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'events', force: :cascade do |t|
+    t.string 'title'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.date 'date'
+  end
+
+  create_table 'events_standups', id: false, force: :cascade do |t|
+    t.integer 'event_id', null: false
+    t.integer 'standup_id', null: false
   end
 
   create_table 'interestings', force: :cascade do |t|

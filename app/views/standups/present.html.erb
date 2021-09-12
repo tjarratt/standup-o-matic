@@ -10,7 +10,7 @@
 </h1>
 
 <div id=presentation class='grid grid-flow-col grid-cols-3 grid-rows-1 gap-4'>
-<% if @interestings %>
+<% if @interestings.any? %>
   <section id=interestings class="max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
     <h2>Interestings</h2>
     <span><%= @interestings.count %></span>
@@ -24,7 +24,7 @@
   </section>
 <% end %>
 
-<% if @events %>
+<% if @events.any? %>
   <section id=events class="max-w-lg bg-yellow-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
     <h2>Events</h2>
     <span><%= @events.count %></span>

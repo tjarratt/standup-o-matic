@@ -38,6 +38,9 @@ class StandupsTest < ApplicationSystemTestCase
 
   test 'presenting standup on Friday' do
     travel_to(Date.parse('Friday')) do
+      add_backmaker('Alice')
+      add_backmaker('Bob')
+
       visit '/standups/today'
       click_on 'Add Moment of Zen'
 
@@ -53,6 +56,14 @@ class StandupsTest < ApplicationSystemTestCase
 
       find('section#zen').click
       assert_selector '.spotlight', text: /Typical moment of zen/
+
+      find('section#backmakers').click
+      assert_selector '.spotlight', text: /Next week's MC will be .../, count: 0
+
+      find('.spotlight li', text: 'Alice').click
+      find('.spotlight li', text: 'Bob').click
+
+      assert_selector '.spotlight', text: /Next week's MC will be .../
     end
   end
 

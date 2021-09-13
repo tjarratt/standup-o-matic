@@ -1,6 +1,9 @@
 <script>
   window.interestings = <%= raw(@interestings.to_json) %>
   window.backmakers = <%= raw(@backmakers.to_json) %>
+  <% if @next_week_mc %>
+  window.next_weeks_mc = <%= raw('"' + @next_week_mc + '"') %>
+  <% end %>
   window.events = <%= raw(make_presentable(@events).to_json) %>
   window.moment_of_zen = <%= raw(@moment_of_zen.to_json) %>
 </script>

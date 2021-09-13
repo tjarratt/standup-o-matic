@@ -27,6 +27,7 @@ window.addEventListener("turbolinks:load", () => {
 
     spotlight.innerHTML = '';
     spotlight.appendChild(presentBackmakers(window.backmakers));
+    spotlight.appendChild(presentNextWeekMCInterface(window.next_weeks_mc, window.backmakers));
   });
 
   addClickListener('#presentation #events', (e) => {
@@ -43,6 +44,48 @@ window.addEventListener("turbolinks:load", () => {
     spotlight.appendChild(presentMomentOfZen(window.moment_of_zen));
   });
 });
+
+function presentNextWeekMCInterface(name, team) {
+  if (typeof name != 'string') {
+    return document.createElement('span');
+  }
+
+  const p = document.createElement('p');
+  p.style.display = 'none';
+
+  const span = document.createElement('span');
+  span.innerText = "Next week's MC will be ...";
+  p.appendChild(span);
+
+  const select = document.createElement('select');
+  for (var i = 0; i < team.length; i++) {
+    const option = document.createElement('option');
+    option.value = team[i].name;
+    option.innerHTML = team[i].name;
+    if (team[i].name === name) { option.selected = true; }
+
+    select.appendChild(option);
+  }
+
+  const checkboxes = document.querySelectorAll('.spotlight input');
+  checkboxes.forEach((ele) => {
+    ele.addEventListener('change', (e) => {
+      var isUnchecked = undefined;
+      checkboxes.forEach((checkbox) => {
+        if (checkbox.checked == false) {
+          isUnchecked = true;
+          return;
+        }
+      });
+
+      if (isUnchecked) { p.style.display = 'none'; }
+      else             { p.style.display = 'block'; }
+    });
+  });
+
+  p.appendChild(select);
+  return p;
+}
 
 function addClickListener(selector, callback) {
   const element = document.querySelector(selector);
@@ -68,23 +111,24 @@ function presentMomentOfZen(content) {
 }
 
 function present(category, content, property) {
-  const root = document.createElement('ul');
+  const root = document.createElement('p');
+  const list = document.createElement('ul');
+  root.appendChild(list);
 
   content.forEach((item, index) => {
     const listItem = document.createElement('li');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
-    const span = document.createElement('span');
-    span.innerText = item[property];
-    span.classList.add('ml-3');
+    checkbox.id = category + '-' + String(index);
 
     const label = document.createElement('label');
-    label.for = category + '-' + String(index);
-    label.appendChild(checkbox);
-    label.appendChild(span);
+    label.htmlFor = category + '-' + String(index);
+    label.innerText = item[property];
+    label.classList.add('ml-3');
+    listItem.append(checkbox);
     listItem.append(label);
 
-    root.appendChild(listItem);
+    list.appendChild(listItem);
   });
 
   return root;

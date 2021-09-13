@@ -10,6 +10,8 @@ class StandupsController < ApplicationController
 
   def present
     @backmakers = Backmaker.all
+    @next_week_mc = choose_random_backmaker if Time.zone.today.friday?
+
     @interestings = Interesting.where(standup: Standup.last)
     @events = Event.all_for_today
     @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
@@ -21,5 +23,10 @@ class StandupsController < ApplicationController
     tomorrow.save
 
     redirect_to action: 'show', id: 'today'
+  end
+
+  private
+  def choose_random_backmaker
+    @backmakers.sample.name
   end
 end

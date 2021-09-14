@@ -94,7 +94,7 @@ function presentNextWeekMCInterface(name, team) {
     fetch('/standups/today/nominate', {
       method: 'POST',
       headers: {
-        'X-CSRF-Token': document.querySelector("meta[name='csrf-token']").content,
+        'X-CSRF-Token': csrfTokenIfPresent(),
         'Content-type': 'application/json',
       },
       body: JSON.stringify({
@@ -153,5 +153,12 @@ function present(category, content, property) {
   });
 
   return root;
+}
+
+function csrfTokenIfPresent() {
+  const tag = document.querySelector("meta[name='csrf-token']")
+  if (!tag) return
+
+  return tag.content;
 }
 

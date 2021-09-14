@@ -42,6 +42,8 @@ class StandupsTest < ApplicationSystemTestCase
 
     add_backmaker('Alice')
     add_backmaker('Bob')
+    add_backmaker('Carol')
+    add_backmaker('David')
 
     visit '/standups/today'
     click_on 'Add Moment of Zen'
@@ -64,6 +66,8 @@ class StandupsTest < ApplicationSystemTestCase
 
     find('.spotlight li', text: 'Alice').click
     find('.spotlight li', text: 'Bob').click
+    find('.spotlight li', text: 'Carol').click
+    find('.spotlight li', text: 'David').click
 
     assert_selector '.spotlight', text: /Next week's MC will be .../
 

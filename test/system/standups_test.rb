@@ -37,34 +37,43 @@ class StandupsTest < ApplicationSystemTestCase
   end
 
   test 'presenting standup on Friday' do
-    travel_to(Date.parse('Friday')) do
-      add_backmaker('Alice')
-      add_backmaker('Bob')
+    friday = Date.parse('friday')
+    travel_to friday
 
-      visit '/standups/today'
-      click_on 'Add Moment of Zen'
+    add_backmaker('Alice')
+    add_backmaker('Bob')
 
-      fill_in 'Title', with: 'Typical moment of zen'
-      fill_in 'Body', with: 'http://example.com'
-      click_on 'Save'
+    visit '/standups/today'
+    click_on 'Add Moment of Zen'
 
-      assert_selector 'p.zen', text: 'All good on zen for now ...'
+    fill_in 'Title', with: 'Typical moment of zen'
+    fill_in 'Body', with: 'http://example.com'
+    click_on 'Save'
 
-      click_on 'Allez let\'s go'
-      assert_selector 'section#zen'
-      assert_selector '.spotlight'
+    assert_selector 'p.zen', text: 'All good on zen for now ...'
 
-      find('section#zen').click
-      assert_selector '.spotlight', text: /Typical moment of zen/
+    click_on 'Allez let\'s go'
+    assert_selector 'section#zen'
+    assert_selector '.spotlight'
 
-      find('section#backmakers').click
-      assert_selector '.spotlight', text: /Next week's MC will be .../, count: 0
+    find('section#zen').click
+    assert_selector '.spotlight', text: /Typical moment of zen/
 
-      find('.spotlight li', text: 'Alice').click
-      find('.spotlight li', text: 'Bob').click
+    find('section#backmakers').click
+    assert_selector '.spotlight', text: /Next week's MC will be .../, count: 0
 
-      assert_selector '.spotlight', text: /Next week's MC will be .../
-    end
+    find('.spotlight li', text: 'Alice').click
+    find('.spotlight li', text: 'Bob').click
+
+    assert_selector '.spotlight', text: /Next week's MC will be .../
+
+    select 'Alice', from: 'nextMC'
+    click_on 'Make it so'
+
+    travel_to friday + 3
+    visit '/standups/today'
+
+    assert_selector 'h4', text: 'Your MC this week will be ... Alice'
   end
 
   def add_backmaker(name)

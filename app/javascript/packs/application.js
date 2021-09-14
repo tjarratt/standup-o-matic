@@ -58,6 +58,8 @@ function presentNextWeekMCInterface(name, team) {
   p.appendChild(span);
 
   const select = document.createElement('select');
+  select.id = 'nextMC';
+
   for (var i = 0; i < team.length; i++) {
     const option = document.createElement('option');
     option.value = team[i].name;
@@ -84,6 +86,25 @@ function presentNextWeekMCInterface(name, team) {
   });
 
   p.appendChild(select);
+
+  const submitButton = document.createElement('button');
+  submitButton.innerText = 'Make it so';
+  submitButton.addEventListener('click', (e) => {
+    const chosen_backmaker = select.value;
+    fetch('/standups/today/nominate', {
+      method: 'POST',
+      headers: {
+        'X-CSRF-Token': document.querySelector("meta[name='csrf-token']").content,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        'backmaker': chosen_backmaker,
+      })
+    });
+  });
+
+  p.appendChild(submitButton);
+
   return p;
 }
 

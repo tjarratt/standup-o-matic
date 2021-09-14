@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_11_221846) do
+ActiveRecord::Schema.define(version: 2021_09_11_221847) do
   create_table 'backmakers', force: :cascade do |t|
     t.string 'name'
     t.datetime 'created_at', precision: 6, null: false
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 2021_09_11_221846) do
     t.index ['standup_id'], name: 'index_moment_of_zens_on_standup_id'
   end
 
+  create_table 'sprints', force: :cascade do |t|
+    t.integer 'backmaker_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['backmaker_id'], name: 'index_sprints_on_backmaker_id'
+  end
+
   create_table 'standups', force: :cascade do |t|
     t.date 'date_of'
     t.string 'presenter'
@@ -56,4 +63,5 @@ ActiveRecord::Schema.define(version: 2021_09_11_221846) do
 
   add_foreign_key 'interestings', 'standups'
   add_foreign_key 'moment_of_zens', 'standups'
+  add_foreign_key 'sprints', 'backmakers'
 end

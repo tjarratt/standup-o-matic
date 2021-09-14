@@ -15,5 +15,6 @@ Rails
       resources :moment_of_zen
 
       get 'present', action: 'present'
+      post 'nominate', action: 'nominate'
     end
   end

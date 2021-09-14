@@ -5,6 +5,7 @@ class StandupsControllerTest < ActionDispatch::IntegrationTest
   test 'events stay on the board until after the date they occur' do
     Timecop.travel Date.parse('January 1 2070')
 
+    Backmaker.create(name: 'Alice')
     Event.create(title: 'Retrospective', date: Date.parse('January 2 2070'))
 
     get '/standups/today'
@@ -44,6 +45,7 @@ class StandupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'other days do not have a moment of zen' do
+    Backmaker.create(name: 'Alice')
     MomentOfZen.new(title: 'tata', body: 'foobiz', standup: Standup.last).save!
 
     %w[monday tuesday wednesday thursday].each do |day|

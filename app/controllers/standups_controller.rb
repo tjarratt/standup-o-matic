@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class StandupsController < ApplicationController
   def show
+    @mc = Backmaker.find(@sprint.backmaker_id) if (@sprint = Sprint.last_or_create)
+
     @backmakers = Backmaker.all
     @interestings = Interesting.where(standup: Standup.last)
     @events = Event.all_for_today
@@ -18,6 +20,11 @@ class StandupsController < ApplicationController
     @has_moment_of_zen = Time.zone.today.friday?
   end
 
+  def nominate
+    next_weeks_mc = Backmaker.where(name: params.require('backmaker')).first
+    Sprint.create(backmaker_id: next_weeks_mc.id)
+  end
+
   def update
     tomorrow = Standup.new(date_of: Date.tomorrow)
     tomorrow.save
@@ -26,6 +33,7 @@ class StandupsController < ApplicationController
   end
 
   private
+
   def choose_random_backmaker
     @backmakers.sample.name
   end

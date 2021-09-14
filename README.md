@@ -1,24 +1,19 @@
-# README
+# Standup-o-matic
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A small Rails + Vanilla.js + TailwindCSS app to help you manage your standups.
 
-Things you may want to cover:
+## Getting started
 
-* Ruby version
+Install a recent version of ruby. On OS X you can use [rbenv](https://github.com/rbenv/rbenv) which will respect the `.ruby-version` in this repository.
 
-* System dependencies
+Afterwards, run `bundle` to install the various dependencies for the app.
 
-* Configuration
+## Running tests
 
-* Database creation
+* Unit tests : `bundle exec rails test`
+* End to End tests : `bundle exec rails test:system`
 
-* Database initialization
+## Running the server in development
 
-* How to run the test suite
+* `bundle exec rails s`
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

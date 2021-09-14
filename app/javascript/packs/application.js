@@ -141,6 +141,12 @@ function present(category, content, property) {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = category + '-' + String(index);
+    checkbox.classList.add('h-4');
+    checkbox.classList.add('w-4');
+    checkbox.classList.add('text-purple-600');
+    checkbox.classList.add('focus:ring-purple-500');
+    checkbox.classList.add('border-gray-300');
+    checkbox.classList.add('rounded');
 
     const label = document.createElement('label');
     label.htmlFor = category + '-' + String(index);

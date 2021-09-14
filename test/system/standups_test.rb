@@ -18,6 +18,7 @@ class StandupsTest < ApplicationSystemTestCase
     assert_selector 'p.zen', count: 0
 
     click_on 'Allez let\'s go'
+    assert_no_js_errors
 
     assert_selector 'section#interestings', text: "Interestings\n1"
     assert_selector 'section#backmakers', text: "La Team\n2"
@@ -34,18 +35,18 @@ class StandupsTest < ApplicationSystemTestCase
 
     find('section#events').click
     assert_selector '.spotlight', text: /Retrospective : 2026-01-31/
+    assert_no_js_errors
   end
 
   test 'presenting standup on Friday' do
     friday = Date.parse('friday')
     travel_to friday
 
-    add_backmaker('Alice')
-    add_backmaker('Bob')
-    add_backmaker('Carol')
-    add_backmaker('David')
+    add_backmakers('Alice', 'Bob', 'Carol', 'David')
 
     visit '/standups/today'
+    assert_no_js_errors
+
     click_on 'Add Moment of Zen'
 
     fill_in 'Title', with: 'Typical moment of zen'
@@ -55,6 +56,8 @@ class StandupsTest < ApplicationSystemTestCase
     assert_selector 'p.zen', text: 'All good on zen for now ...'
 
     click_on 'Allez let\'s go'
+    assert_no_js_errors
+
     assert_selector 'section#zen'
     assert_selector '.spotlight'
 
@@ -78,10 +81,12 @@ class StandupsTest < ApplicationSystemTestCase
     visit '/standups/today'
 
     assert_selector 'h4', text: 'Your MC this week will be ... Alice'
+    assert_no_js_errors
   end
 
   def add_backmaker(name)
     visit backmakers_path
+    assert_no_js_errors
 
     click_on 'Add new BackMaker'
     fill_in 'Name', with: name
@@ -90,8 +95,13 @@ class StandupsTest < ApplicationSystemTestCase
     assert_text name
   end
 
+  def add_backmakers(*names)
+    names.each { |name| add_backmaker(name) }
+  end
+
   def add_interesting(title, body)
     visit '/standups/today'
+    assert_no_js_errors
 
     click_on 'Add new Interesting'
     fill_in 'Title', with: title
@@ -103,11 +113,26 @@ class StandupsTest < ApplicationSystemTestCase
 
   def add_event(title, year, month, day)
     visit '/standups/today'
+    assert_no_js_errors
 
     click_on 'Add new Event'
     fill_in 'Title', with: title
     select year, from: 'event_date_1i'
     select month, from: 'event_date_2i'
     select day, from: 'event_date_3i'
+  end
+
+  def assert_no_js_errors
+    errors =
+      page
+        .driver
+        .browser
+        .manage
+        .logs
+        .get(:browser)
+        .reject { |e| e.level == 'WARNING' }
+
+    assert errors.length.zero?,
+           "Expected no js errors, but these errors where found: #{errors.join(', ')}"
   end
 end

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 class StandupsController < ApplicationController
   def show
-    @mc = Backmaker.find(@sprint.backmaker_id) if (@sprint = Sprint.last_or_create)
+    @mc = Backmaker.find(@sprint.backmaker_id) if (
+      @sprint = Sprint.last_or_create
+    )
 
     @backmakers = Backmaker.all
     @interestings = Interesting.where(standup: Standup.last)

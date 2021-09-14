@@ -5,15 +5,13 @@ class StandupsTest < ApplicationSystemTestCase
   include ActiveSupport::Testing::TimeHelpers
 
   test 'presenting standup for an average day' do
-    add_backmaker('Alice')
-    add_backmaker('Bob')
+    add_backmakers('Alice', 'Bob')
     add_interesting(
       'Banana poisoning',
       'Eating 10 million bananas at once would kill you'
     )
     add_event('Retrospective', '2026', 'January', '31')
 
-    click_on 'Save'
     assert_selector 'ul.events', text: 'Retrospective'
     assert_selector 'p.zen', count: 0
 
@@ -29,8 +27,7 @@ class StandupsTest < ApplicationSystemTestCase
     assert_selector '.spotlight', text: /Banana poisoning/
 
     find('section#backmakers').click
-    assert_selector '.spotlight', text: /Alice/
-    assert_selector '.spotlight', text: /Bob/
+    assert_selector '.spotlight', text: /Alice\nBob/
     assert_no_text 'Banana poisoning'
 
     find('section#events').click
@@ -43,16 +40,7 @@ class StandupsTest < ApplicationSystemTestCase
     travel_to friday
 
     add_backmakers('Alice', 'Bob', 'Carol', 'David')
-
-    visit '/standups/today'
-    assert_no_js_errors
-
-    click_on 'Add Moment of Zen'
-
-    fill_in 'Title', with: 'Typical moment of zen'
-    fill_in 'Body', with: 'http://example.com'
-    click_on 'Save'
-
+    add_moment_of_zen('Typical moment of zen', 'http://example.com')
     assert_selector 'p.zen', text: 'All good on zen for now ...'
 
     click_on 'Allez let\'s go'
@@ -78,15 +66,14 @@ class StandupsTest < ApplicationSystemTestCase
     click_on 'Make it so'
 
     travel_to friday + 3
-    visit '/standups/today'
+    visit_safely '/standups/today'
 
     assert_selector 'h4', text: 'Your MC this week will be ... Alice'
     assert_no_js_errors
   end
 
   def add_backmaker(name)
-    visit backmakers_path
-    assert_no_js_errors
+    visit_safely backmakers_path
 
     click_on 'Add new BackMaker'
     fill_in 'Name', with: name
@@ -100,8 +87,7 @@ class StandupsTest < ApplicationSystemTestCase
   end
 
   def add_interesting(title, body)
-    visit '/standups/today'
-    assert_no_js_errors
+    visit_safely '/standups/today'
 
     click_on 'Add new Interesting'
     fill_in 'Title', with: title
@@ -112,27 +98,22 @@ class StandupsTest < ApplicationSystemTestCase
   end
 
   def add_event(title, year, month, day)
-    visit '/standups/today'
-    assert_no_js_errors
+    visit_safely '/standups/today'
 
     click_on 'Add new Event'
     fill_in 'Title', with: title
     select year, from: 'event_date_1i'
     select month, from: 'event_date_2i'
     select day, from: 'event_date_3i'
+    click_on 'Save'
   end
 
-  def assert_no_js_errors
-    errors =
-      page
-        .driver
-        .browser
-        .manage
-        .logs
-        .get(:browser)
-        .reject { |e| e.level == 'WARNING' }
+  def add_moment_of_zen(title, body)
+    visit_safely '/standups/today'
 
-    assert errors.length.zero?,
-           "Expected no js errors, but these errors where found: #{errors.join(', ')}"
+    click_on 'Add Moment of Zen'
+    fill_in 'Title', with: title
+    fill_in 'Body', with: body
+    click_on 'Save'
   end
 end

@@ -14,4 +14,23 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
             using: :chrome,
             options: options,
             screen_size: [1400, 1400]
+
+  def visit_safely(url)
+    visit url
+    assert_no_js_errors
+  end
+
+  def assert_no_js_errors
+    errors =
+      page
+        .driver
+        .browser
+        .manage
+        .logs
+        .get(:browser)
+        .reject { |e| e.level == 'WARNING' }
+
+    assert errors.length.zero?,
+           "Expected no js errors, but these errors where found: #{errors.join(', ')}"
+  end
 end

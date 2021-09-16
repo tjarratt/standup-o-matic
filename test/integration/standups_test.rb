@@ -50,9 +50,9 @@ class StandupsTest < ActionDispatch::IntegrationTest
     assert_select 'ul.interestings', text: ''
   end
 
-  test 'presenting standup for consecutive days' do
+  test 'presenting a standup saves it in the database' do
     put '/standups/today', params: { presented: true }
 
-    assert_equal Date.tomorrow, Standup.last.date_of
+    assert_equal Time.zone.today, Standup.last.date_of
   end
 end

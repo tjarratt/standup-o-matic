@@ -9,7 +9,7 @@ class StandupsController < ApplicationController
     @interestings = Interesting.where(standup: Standup.last)
     @events = Event.all_for_today
     @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
-    @has_moment_of_zen = Time.zone.today.friday?
+    @has_moment_of_zen = ready_for_zen
   end
 
   def present
@@ -19,7 +19,7 @@ class StandupsController < ApplicationController
     @interestings = Interesting.where(standup: Standup.last)
     @events = Event.all_for_today
     @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
-    @has_moment_of_zen = Time.zone.today.friday?
+    @has_moment_of_zen = ready_for_zen
   end
 
   def nominate
@@ -28,8 +28,7 @@ class StandupsController < ApplicationController
   end
 
   def update
-    tomorrow = Standup.new(date_of: Date.tomorrow)
-    tomorrow.save
+    Standup.create(date_of: Time.zone.today)
 
     redirect_to action: 'show', id: 'today'
   end
@@ -38,5 +37,13 @@ class StandupsController < ApplicationController
 
   def choose_random_backmaker
     @backmakers.sample.name
+  end
+
+  def ready_for_zen
+    Time.zone.today.friday? ||
+      (
+        Time.zone.today.thursday? &&
+          Standup.where(date_of: Time.zone.today).count.positive?
+      )
   end
 end

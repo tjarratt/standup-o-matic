@@ -35,6 +35,19 @@ class StandupsTest < ApplicationSystemTestCase
     assert_no_js_errors
   end
 
+  test 'preparing for a jolly moment of zen on Thursday' do
+    travel_to Date.parse('thursday')
+
+    add_backmakers('Alice', 'Bob')
+    visit_safely '/standups/today'
+    assert_selector 'section#zen', count: 0
+
+    click_on 'Allez let\'s go'
+    click_on 'Standup is DONE'
+
+    assert_selector 'section#zen'
+  end
+
   test 'presenting standup on Friday' do
     friday = Date.parse('friday')
     travel_to friday

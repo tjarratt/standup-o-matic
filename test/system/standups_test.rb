@@ -77,6 +77,9 @@ class StandupsTest < ApplicationSystemTestCase
 
     select 'Alice', from: 'nextMC'
     click_on 'Make it so'
+    click_on 'Standup is DONE'
+
+    assert_selector 'section#zen', count: 0
 
     travel_to friday + 3
     visit_safely '/standups/today'

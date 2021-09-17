@@ -40,7 +40,10 @@ class StandupsController < ApplicationController
   end
 
   def ready_for_zen
-    Time.zone.today.friday? ||
+    (
+      Time.zone.today.friday? &&
+        Standup.where(date_of: Time.zone.today).count.zero?
+    ) ||
       (
         Time.zone.today.thursday? &&
           Standup.where(date_of: Time.zone.today).count.positive?

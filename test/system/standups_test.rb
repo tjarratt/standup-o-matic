@@ -15,8 +15,7 @@ class StandupsTest < ApplicationSystemTestCase
     assert_selector 'ul.events', text: 'Retrospective'
     assert_selector 'p.zen', count: 0
 
-    click_on 'Allez let\'s go'
-    assert_no_js_errors
+    click_on_safely 'Allez let\'s go'
 
     assert_selector 'section#interestings', text: "Interestings\n1"
     assert_selector 'section#backmakers', text: "La Team\n2"
@@ -31,8 +30,8 @@ class StandupsTest < ApplicationSystemTestCase
     assert_no_text 'Banana poisoning'
 
     find('section#events').click
-    assert_selector '.spotlight', text: /Retrospective : 2026-01-31/
     assert_no_js_errors
+    assert_selector '.spotlight', text: /Retrospective : 2026-01-31/
   end
 
   test 'preparing for a jolly moment of zen on Thursday' do
@@ -42,8 +41,8 @@ class StandupsTest < ApplicationSystemTestCase
     visit_safely '/standups/today'
     assert_selector 'section#zen', count: 0
 
-    click_on 'Allez let\'s go'
-    click_on 'Standup is DONE'
+    click_on_safely 'Allez let\'s go'
+    click_on_safely 'Standup is DONE'
 
     assert_selector 'section#zen'
   end
@@ -56,11 +55,7 @@ class StandupsTest < ApplicationSystemTestCase
     add_moment_of_zen('Typical moment of zen', 'http://example.com')
     assert_selector 'p.zen', text: 'All good on zen for now ...'
 
-    click_on 'Allez let\'s go'
-    assert_no_js_errors
-
-    assert_selector 'section#zen'
-    assert_selector '.spotlight'
+    click_on_safely 'Allez let\'s go'
 
     find('section#zen').click
     assert_selector '.spotlight', text: /Typical moment of zen/
@@ -76,8 +71,8 @@ class StandupsTest < ApplicationSystemTestCase
     assert_selector '.spotlight', text: /Next week's MC will be .../
 
     select 'Alice', from: 'nextMC'
-    click_on 'Make it so'
-    click_on 'Standup is DONE'
+    click_on_safely 'Make it so'
+    click_on_safely 'Standup is DONE'
 
     assert_selector 'section#zen', count: 0
 
@@ -91,9 +86,9 @@ class StandupsTest < ApplicationSystemTestCase
   def add_backmaker(name)
     visit_safely backmakers_path
 
-    click_on 'Add new BackMaker'
+    click_on_safely 'Add new BackMaker'
     fill_in 'Name', with: name
-    click_on 'Save'
+    click_on_safely 'Save'
 
     assert_text name
   end
@@ -105,10 +100,10 @@ class StandupsTest < ApplicationSystemTestCase
   def add_interesting(title, body)
     visit_safely '/standups/today'
 
-    click_on 'Add new Interesting'
+    click_on_safely 'Add new Interesting'
     fill_in 'Title', with: title
     fill_in 'Body', with: body
-    click_on 'Save'
+    click_on_safely 'Save'
 
     assert_selector 'ul.interestings', text: title
   end
@@ -116,20 +111,22 @@ class StandupsTest < ApplicationSystemTestCase
   def add_event(title, year, month, day)
     visit_safely '/standups/today'
 
-    click_on 'Add new Event'
+    click_on_safely 'Add new Event'
     fill_in 'Title', with: title
     select year, from: 'event_date_1i'
     select month, from: 'event_date_2i'
     select day, from: 'event_date_3i'
-    click_on 'Save'
+
+    click_on_safely 'Save'
   end
 
   def add_moment_of_zen(title, body)
     visit_safely '/standups/today'
 
-    click_on 'Add Moment of Zen'
+    click_on_safely 'Add Moment of Zen'
     fill_in 'Title', with: title
     fill_in 'Body', with: body
-    click_on 'Save'
+
+    click_on_safely 'Save'
   end
 end

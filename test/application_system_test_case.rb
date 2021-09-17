@@ -20,6 +20,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     assert_no_js_errors
   end
 
+  def click_on_safely(selector)
+    click_on(selector)
+    assert_no_js_errors
+  end
+
   def assert_no_js_errors
     errors =
       page

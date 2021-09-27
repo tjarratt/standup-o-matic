@@ -126,7 +126,7 @@ function addClickListener(selector, callback) {
 }
 
 function presentInterestings(content) {
-  return present('interesting', content, 'title');
+  return present('interesting', content, 'title', 'body');
 };
 
 function presentBackmakers(content) {
@@ -141,7 +141,7 @@ function presentMomentOfZen(content) {
   return present('zen', [content], 'title');
 }
 
-function present(category, content, property) {
+function present(category, content, property, detailProperty) {
   const root = document.createElement('p');
   const list = document.createElement('ul');
   root.appendChild(list);
@@ -166,6 +166,22 @@ function present(category, content, property) {
     listItem.append(label);
 
     list.appendChild(listItem);
+
+    if (detailProperty) {
+      const detail = item[detailProperty];
+      if (detail.startsWith('http://') || detail.startsWith('https://')) {
+	const link = document.createElement('a');
+        link.href = detail;
+        link.innerText = '\xa0-\xa0' + detail; // non-breaking space
+        link.classList = "font-medium text-indigo-600 hover:text-indigo-500";
+
+        listItem.appendChild(link);
+      } else {
+	const text = document.createElement('label');
+        text.innerText = '\xa0-\xa0' + detail;
+        listItem.appendChild(text);
+      }
+    }
   });
 
   return root;

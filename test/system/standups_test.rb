@@ -24,6 +24,7 @@ class StandupsTest < ApplicationSystemTestCase
 
     find('section#interestings').click
     assert_selector '.spotlight', text: /Banana poisoning/
+    assert_selector '.spotlight', text: /Eating 10 million bananas/
 
     find('section#backmakers').click
     assert_selector '.spotlight', text: /Alice\nBob/

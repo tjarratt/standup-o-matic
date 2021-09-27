@@ -58,6 +58,7 @@ class StandupsTest < ApplicationSystemTestCase
 
     click_on_safely 'Allez let\'s go'
 
+    sleep 0.3
     find('section#zen').click
     assert_selector '.spotlight', text: /Typical moment of zen/
 

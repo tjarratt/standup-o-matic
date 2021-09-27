@@ -19,18 +19,6 @@ class StandupsTest < ActionDispatch::IntegrationTest
     assert_select 'ul.interestings li', text: 'UK Bees Act of 1980', count: 1
   end
 
-  test 'adding a BackMaker adds it to the home page' do
-    get '/standups/today'
-    assert_response :success
-    assert_select 'ul.backmakers li', count: 0
-
-    Backmaker.new(name: 'Ursula').save
-
-    get '/standups/today'
-    assert_response :success
-    assert_select 'ul.backmakers li', text: 'Ursula', count: 1
-  end
-
   test 'presenting standup clears the board' do
     Backmaker.new(name: 'Ursula').save
     Interesting.new(

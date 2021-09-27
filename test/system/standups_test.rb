@@ -62,7 +62,7 @@ class StandupsTest < ApplicationSystemTestCase
     assert_selector '.spotlight', text: /Typical moment of zen/
 
     find('section#backmakers').click
-    assert_selector '.spotlight', text: /Next week's MC will be .../, count: 0
+    assert_selector '.spotlight', text: /Next week's MC is .../, count: 0
 
     find('.spotlight li', text: 'Alice').click
     find('.spotlight li', text: 'Bob').click
@@ -80,7 +80,7 @@ class StandupsTest < ApplicationSystemTestCase
     travel_to friday + 3
     visit_safely '/standups/today'
 
-    assert_selector 'h4', text: 'Your MC this week will be ... Alice'
+    assert_selector 'h4', text: 'Your MC this week is ... Alice'
     assert_no_js_errors
   end
 

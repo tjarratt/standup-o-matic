@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+require 'standup_mc_nominator'
+
 class StandupsController < ApplicationController
   def show
     @mc = Backmaker.find(@sprint.backmaker_id) if (
@@ -36,7 +39,9 @@ class StandupsController < ApplicationController
   private
 
   def choose_random_backmaker
-    @backmakers.sample.name
+    nominator = StandupMCNominator.new(@backmakers)
+
+    nominator.choose_one.name
   end
 
   def ready_for_zen
@@ -50,3 +55,4 @@ class StandupsController < ApplicationController
       )
   end
 end
+

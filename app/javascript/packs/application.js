@@ -12,6 +12,27 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+window.presentationCache = {
+  interesting: {},
+  event: {},
+  backmaker: {},
+  zen: {},
+};
+
+function cacheContains(category, key) {
+  const cache = window.presentationCache[category];
+  if (!cache) {
+    console.error("Missing category in cache: " + category);
+    return false;
+  }
+
+  return cache[key] ? true : false;
+}
+
+function cacheSet(category, key) {
+  window.presentationCache[category][key] = true;
+}
+
 window.addEventListener("turbolinks:load", () => {
   const spotlight = document.querySelector('.spotlight');
 
@@ -147,16 +168,21 @@ function present(category, content, property, detailProperty) {
   root.appendChild(list);
 
   content.forEach((item, index) => {
+    const categoryId = category + '-' + String(index);
     const listItem = document.createElement('li');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
-    checkbox.id = category + '-' + String(index);
+    checkbox.id = categoryId;
     checkbox.classList.add('h-4');
     checkbox.classList.add('w-4');
     checkbox.classList.add('text-purple-600');
     checkbox.classList.add('focus:ring-purple-500');
     checkbox.classList.add('border-gray-300');
     checkbox.classList.add('rounded');
+    checkbox.checked = cacheContains(category, categoryId);
+    checkbox.addEventListener('click', function(_) {
+      cacheSet(category, categoryId);
+    });
 
     const label = document.createElement('label');
     label.htmlFor = category + '-' + String(index);

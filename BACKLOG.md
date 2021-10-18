@@ -1,5 +1,4 @@
 # YE OLDE BACKLOG 
-[ ] stateful checkboxes when presenting
 [ ] next week's MC cannot be the same as this week's
 [ ] smarter suggestions for next week's MC
 [ ] slack integration
@@ -65,4 +64,5 @@ assumptions
 [x] BUG : standups should not exist until PRESENTED (otherwise date will be wrong -- weekends, holidays, etc)
 [x] hide team on the homepage
 [x] randomize backmakers when presenting
+[x] checkboxes are stateful while presenting
 

@@ -1,10 +1,24 @@
 # YE OLDE BACKLOG 
-[ ] next week's MC cannot be the same as this week's
-[ ] smarter suggestions for next week's MC
+[x] next week's MC cannot be the same as this week's
+[ ] homepage changes once standup has been presented
+[ ] cannot present standup more than once per day
 [ ] slack integration
+[ ] try out a ruby mutant testing library
+[ ] smarter suggestions for next week's MC
+  -- setup a simple weight system (all equal)
+  -- factor out the weight calculator
+  -- improve how weights are calculated (take into account num times each has run standup)
+[ ] visual indicator of "selected" when presenting categories (interesting, etc)
 [ ] randomize "X tool for X teams"
+  -- funky
+  -- simple
+  -- clever
+  -- kind
+  -- gentle
+  -- artisanal
+  -- welcoming
 [ ] click to hide / show boxes when presenting
-[ ] homepage says "Fancy a standup ? What else ?" before standup i srun
+[ ] homepage says "Fancy a standup ? What else ?" before standup is run
 [ ] homepage says "Next standup will be ... $DATE" after it has been presented
 [ ] work on deflaking the moment of zen test (see commit with "deflake")
 [ ] page with historical record of sprints ?

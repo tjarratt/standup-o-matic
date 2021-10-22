@@ -27,6 +27,7 @@ class StandupsControllerTest < ActionDispatch::IntegrationTest
 
   test 'fridays benefit from a moment of zen' do
     Backmaker.create(name: 'Alice')
+    Backmaker.create(name: 'Bob')
 
     Timecop.freeze Date.parse('Friday') do
       get '/standups/today'

@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
-require 'standup_mc_nominator'
+require 'standup_emcee_nominator'
 
 class StandupsController < ApplicationController
-  def show
-    @mc = Backmaker.find(@sprint.backmaker_id) if (
-      @sprint = Sprint.last_or_create
-    )
+  attr_reader :next_week_mc
 
+  def initialize(nominator: StandupEmceeNominator.new)
+    @nominator = nominator
+    super()
+  end
+
+  def show
+    @sprint = Sprint.last_or_create
+    @mc = current_mc if @sprint
     @backmakers = Backmaker.all
     @interestings = Interesting.where(standup: Standup.last)
     @events = Event.all_for_today
@@ -16,6 +21,8 @@ class StandupsController < ApplicationController
   end
 
   def present
+    @sprint = Sprint.last_or_create
+    @mc = current_mc if @sprint
     @backmakers = Backmaker.all
     @next_week_mc = choose_random_backmaker if Time.zone.today.friday?
 
@@ -38,10 +45,14 @@ class StandupsController < ApplicationController
 
   private
 
-  def choose_random_backmaker
-    nominator = StandupMCNominator.new(@backmakers)
+  def current_mc
+    Backmaker.find(@sprint.backmaker_id)
+  end
 
-    nominator.choose_one.name
+  def choose_random_backmaker
+    eligible_backmakers = @backmakers - [@mc]
+    backmaker = @nominator.choose_one(eligible_backmakers)
+    backmaker.name
   end
 
   def ready_for_zen
@@ -55,4 +66,3 @@ class StandupsController < ApplicationController
       )
   end
 end
-

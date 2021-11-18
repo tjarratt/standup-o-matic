@@ -50,6 +50,8 @@ class StandupsController < ApplicationController
   end
 
   def choose_random_backmaker
+    return nil unless @backmakers.size >= 2
+
     eligible_backmakers = @backmakers - [@mc]
     backmaker = @nominator.choose_one(eligible_backmakers)
     backmaker.name

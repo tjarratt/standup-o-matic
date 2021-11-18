@@ -86,6 +86,16 @@ class StandupsTest < ApplicationSystemTestCase
     assert_no_js_errors
   end
 
+  test 'presenting without a full team' do
+    Timecop.freeze Date.parse('Friday')
+
+    visit_safely '/standups/today'
+    click_on_safely 'Allez let\'s go'
+
+    assert_selector 'section#backmakers', count: 0
+    assert_no_js_errors
+  end
+
   def add_backmaker(name)
     visit_safely backmakers_path
 

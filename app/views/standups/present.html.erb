@@ -13,6 +13,7 @@
 </h1>
 
 <div id=presentation class='grid grid-flow-col grid-cols-3 grid-rows-1 gap-4'>
+
 <% if @interestings.any? %>
   <section id=interestings class="max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
     <h2>Interestings</h2>
@@ -20,7 +21,7 @@
   </section>
 <% end %>
 
-<% if @backmakers %>
+<% if @backmakers.any? %>
   <section id=backmakers class="max-w-lg bg-purple-300 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
     <h2>La Team</h2>
     <span><%= @backmakers.count %></span>

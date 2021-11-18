@@ -59,7 +59,8 @@ class StandupsTest < ApplicationSystemTestCase
 
     click_on_safely 'Allez let\'s go'
 
-    sleep 0.3
+    sleep 0.3 # possibly necessary because we don't update the DOM all in one go ?
+              # ie : the text is in the DOM but the clickhandler not yet installed
     find('section#zen').click
     assert_selector '.spotlight', text: /Typical moment of zen/
 

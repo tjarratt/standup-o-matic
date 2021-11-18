@@ -20,7 +20,9 @@ class StandupsTest < ActionDispatch::IntegrationTest
   end
 
   test 'presenting standup clears the board' do
+    Backmaker.new(name: 'Ariel').save
     Backmaker.new(name: 'Ursula').save
+
     Interesting.new(
       title: 'Killah Bees in your neighborhood',
       standup: Standup.last
@@ -29,7 +31,7 @@ class StandupsTest < ActionDispatch::IntegrationTest
     get '/standups/today/present'
     assert_response :success
     assert_select 'section#interestings', text: /1/
-    assert_select 'section#backmakers', text: /1/
+    assert_select 'section#backmakers', text: /2/
 
     put '/standups/today', params: { presented: true }
     follow_redirect!

@@ -12,7 +12,7 @@
   Allez let's go, c'est l'heure
 </h1>
 
-<div id=presentation class='grid grid-flow-col grid-cols-<%= [@interestings, @backmakers, @events, [@moment_of_zen]].filter(&:any?).size %> grid-rows-1 gap-4'>
+<div id=presentation class='grid grid-flow-col grid-cols-<%= [@interestings, @backmakers, @events, [@moment_of_zen], [@next_week_mc]].filter(&:any?).size %> grid-rows-1 gap-4'>
 
 <% if @interestings.any? %>
   <section id=interestings class="max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">

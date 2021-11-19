@@ -37,22 +37,16 @@ window.addEventListener("turbolinks:load", () => {
   const spotlight = document.querySelector('.spotlight');
 
   addClickListener('#presentation #interestings', (e) => {
-    e.preventDefault();
-
     spotlight.innerHTML = '';
     spotlight.appendChild(presentInterestings(window.interestings));
   });
 
   addClickListener('#presentation #backmakers', (e) => {
-    e.preventDefault();
-
     spotlight.innerHTML = '';
     spotlight.appendChild(presentBackmakers(window.backmakers));
   });
 
   addClickListener('#presentation #events', (e) => {
-    e.preventDefault();
-
     spotlight.innerHTML = '';
     spotlight.appendChild(presentEvents(window.events));
   });
@@ -63,8 +57,6 @@ window.addEventListener("turbolinks:load", () => {
   });
 
   addClickListener('#presentation #zen', (e) => {
-    e.preventDefault();
-
     spotlight.innerHTML = '';
     spotlight.appendChild(presentMomentOfZen(window.moment_of_zen));
   });

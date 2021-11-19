@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'application_system_test_case'
 
-class FridayStandupsTest < ApplicationSystemTestCase
+class EndOfWeekStandupsTest < ApplicationSystemTestCase
   include ActiveSupport::Testing::TimeHelpers
 
   test 'preparing for a jolly moment of zen on Thursday' do
@@ -17,30 +17,6 @@ class FridayStandupsTest < ApplicationSystemTestCase
     assert_selector 'section#zen'
   end
 
-  test 'presenting standup for the entire team' do
-    add_backmakers('Alice', 'Bob', 'Carol', 'David')
-    add_moment_of_zen('Typical moment of zen', 'https://zombo.com')
-    assert_selector 'p.zen', text: 'All good on zen for now ...'
-
-    click_on_safely 'Allez let\'s go'
-
-    # this is necessary because the click handlers are added after the document loads
-    # ie : the text is in the DOM but the clickhandler not yet installed
-    sleep 0.3 
-
-    find('section#zen').click
-    assert_selector '.spotlight', text: /Typical moment of zen/
-
-    find('section#backmakers').click
-
-    find('.spotlight li', text: 'Alice').click
-    find('.spotlight li', text: 'Bob').click
-    find('.spotlight li', text: 'Carol').click
-    find('.spotlight li', text: 'David').click
-
-    assert_no_js_errors
-  end
- 
   test 'MCs can be nominated around the end of the week' do
     add_backmakers('Alice', 'Bob')
 

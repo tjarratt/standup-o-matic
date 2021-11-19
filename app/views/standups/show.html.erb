@@ -5,7 +5,7 @@
   </h4>
   <% end %>
   
-  <div class='grid grid-flow-col grid-cols-2 grid-rows-1 gap-2'>
+  <div class='grid grid-flow-col grid-cols-<%= @ready_for_zen ? 3 : 2 %> justify-items-stretch gap-4'>
   
   <section id=interestings class="max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
     <h2 class='text-xl sm:text-3xml lg:text-4xml leading-none font-bold text-gray-800 tracking-tight mb-8'>Interestings</h2>
@@ -39,7 +39,7 @@
     <%= link_to 'Add new Event', new_event_path, {class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6'} %>
   </section>
   
-  <% if @has_moment_of_zen %>
+  <% if @ready_for_zen %>
   <section id=zen class="max-w-lg bg-blue-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
     <h2 class='text-xl sm:text-3xml lg:text-4xml leading-none font-bold text-gray-800 tracking-tight mb-8'>Moment of Zen</h2>
   
@@ -50,10 +50,10 @@
     <% end %>
   </section>
   <% end %>
-  
-  <section class='absolute bottom-0 left-0 p-5'>
-    <a href='/standups/today/present' class='inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
-      Allez let's go
-    </a>
-  <section>
 </div>
+
+<section class='absolute bottom-0 left-0 p-5'>
+  <a href='/standups/today/present' class='inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+    Allez let's go
+  </a>
+<section>

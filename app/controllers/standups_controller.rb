@@ -16,8 +16,11 @@ class StandupsController < ApplicationController
     @backmakers = Backmaker.all
     @interestings = Interesting.where(standup: Standup.last)
     @events = Event.all_for_today
-    @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
-    @has_moment_of_zen = ready_for_zen
+
+    if ready_for_zen then
+      @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
+      @ready_for_zen = ready_for_zen
+    end
   end
 
   def present
@@ -28,8 +31,7 @@ class StandupsController < ApplicationController
 
     @interestings = Interesting.where(standup: Standup.last)
     @events = Event.all_for_today
-    @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
-    @has_moment_of_zen = ready_for_zen
+    @moment_of_zen = MomentOfZen.where(standup: Standup.last).first if ready_for_zen
   end
 
   def nominate

@@ -24,7 +24,7 @@ class StandupsController < ApplicationController
     @sprint = Sprint.last_or_create
     @mc = current_mc if @sprint
     @backmakers = Backmaker.all
-    @next_week_mc = choose_random_backmaker if Time.zone.today.friday?
+    @next_week_mc = choose_random_backmaker if can_pick_mc?
 
     @interestings = Interesting.where(standup: Standup.last)
     @events = Event.all_for_today
@@ -44,6 +44,10 @@ class StandupsController < ApplicationController
   end
 
   private
+
+  def can_pick_mc?
+    Time.zone.today.thursday? || Time.zone.today.friday?
+  end
 
   def current_mc
     Backmaker.find(@sprint.backmaker_id)

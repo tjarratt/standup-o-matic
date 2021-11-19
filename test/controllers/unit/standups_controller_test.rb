@@ -5,7 +5,7 @@ require 'minitest/autorun'
 
 class StandupsControllerUnitTest < ActiveSupport::TestCase
   test 'a backmaker cannot be MC for standup twice in a row' do
-    Timecop.freeze Date.parse('Friday')
+    Timecop.freeze Date.parse('Thursday')
 
     alice = Backmaker.create(name: 'Alice')
     bob = Backmaker.create(name: 'Bob')

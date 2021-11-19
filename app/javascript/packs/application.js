@@ -48,7 +48,6 @@ window.addEventListener("turbolinks:load", () => {
 
     spotlight.innerHTML = '';
     spotlight.appendChild(presentBackmakers(window.backmakers));
-    spotlight.appendChild(presentNextWeekMCInterface(window.next_weeks_mc, window.backmakers));
   });
 
   addClickListener('#presentation #events', (e) => {
@@ -56,6 +55,11 @@ window.addEventListener("turbolinks:load", () => {
 
     spotlight.innerHTML = '';
     spotlight.appendChild(presentEvents(window.events));
+  });
+
+  addClickListener('#presentation #next-mc', (e) => {
+    spotlight.innerHTML = '';
+    presentNextWeekMCInterface(spotlight, window.next_weeks_mc, window.backmakers);
   });
 
   addClickListener('#presentation #zen', (e) => {
@@ -66,19 +70,18 @@ window.addEventListener("turbolinks:load", () => {
   });
 });
 
-function presentNextWeekMCInterface(name, team) {
+function presentNextWeekMCInterface(container, name, team) {
   if (typeof name != 'string') {
     return document.createElement('span');
   }
 
   const p = document.createElement('p');
-  p.style.display = 'none';
-
   const span = document.createElement('span');
   span.innerText = "Next week's MC will be ...";
   p.appendChild(span);
 
   const select = document.createElement('select');
+  select.className = 'ml-1';
   select.id = 'nextMC';
 
   for (var i = 0; i < team.length; i++) {
@@ -90,26 +93,14 @@ function presentNextWeekMCInterface(name, team) {
     select.appendChild(option);
   }
 
-  const checkboxes = document.querySelectorAll('.spotlight input');
-  checkboxes.forEach((ele) => {
-    ele.addEventListener('change', (e) => {
-      var isUnchecked = undefined;
-      checkboxes.forEach((checkbox) => {
-        if (checkbox.checked == false) {
-          isUnchecked = true;
-          return;
-        }
-      });
-
-      if (isUnchecked) { p.style.display = 'none'; }
-      else             { p.style.display = 'block'; }
-    });
-  });
-
   p.appendChild(select);
+  container.appendChild(p);
 
+  const p2 = document.createElement('p');
+  p2.className = 'mt-3';
   const submitButton = document.createElement('button');
   submitButton.innerText = 'Make it so';
+  submitButton.className = 'inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500';
   submitButton.addEventListener('click', (e) => {
     const chosen_backmaker = select.value;
     fetch('/standups/today/nominate', {
@@ -122,21 +113,16 @@ function presentNextWeekMCInterface(name, team) {
         'backmaker': chosen_backmaker,
       })
     }).then((_) => {
-      select.disabled = true;
-      submitButton.disabled = true;
-      checkboxes.forEach((ele) => {
-        ele.disabled = true;
-      });
-
       const success = document.createElement('span');
-      span.innerText = "✅";
+      success.innerText = "✅ You got it, boss";
+      p.innerText = '';
       p.appendChild(success);
+      submitButton.remove();
     });
   });
 
-  p.appendChild(submitButton);
-
-  return p;
+  p2.appendChild(submitButton);
+  container.appendChild(p2);
 }
 
 function addClickListener(selector, callback) {

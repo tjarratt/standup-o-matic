@@ -35,6 +35,12 @@
   </section>
 <% end %>
 
+<% if @next_week_mc %>
+  <section id=next-mc class="max-w-lg bg-pink-300 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+    <h2>Nominate our MC</h2>
+  </section>
+<% end %>
+
 <% if @has_moment_of_zen && @moment_of_zen %>
   <section id=zen class="max-w-lg bg-blue-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
     <h2>Moment of Zen</h2>
@@ -47,7 +53,8 @@
 <span>Nothing to present. Are you <strong>sure</strong> you want to run standup ?<span>
 <% end %>
 
-<section class='spotlight flex justify-center mt-10'>
+<section class='spotlight flex flex-col text-center mt-10'>
+</section>
 </section>
 
 <section class='absolute bottom-0 left-0 p-5'>

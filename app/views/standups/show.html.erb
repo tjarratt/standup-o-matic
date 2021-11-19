@@ -1,59 +1,59 @@
-<% if @mc %>
-<h4 class="text-xl sm:text-xl lg:text-3xl leading-none font-extrabold text-gray-900 tracking-tight mb-8">
-  Your MC this week is ... <%= @mc.name %>
-</h4>
-<% end %>
-
-<div class='grid grid-flow-col grid-cols-2 grid-rows-1 gap-2'>
-
-<section id=interestings class="max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
-  <h2 class='text-xl sm:text-3xml lg:text-4xml leading-none font-bold text-gray-800 tracking-tight mb-8'>Interestings</h2>
-  
-  <% if @interestings %>
-  <ul class='interestings'>
-  
-  <% @interestings.each do |interesting| %>
-    <li><%= interesting.title %></li>
+<div class="pl-2 pr-2">
+  <% if @mc %>
+  <h4 class="text-xl sm:text-xl lg:text-3xl leading-none font-extrabold text-gray-900 tracking-tight mb-8">
+    Your MC this week is ... <%= @mc.name %>
+  </h4>
   <% end %>
   
-  </ul>
+  <div class='grid grid-flow-col grid-cols-2 grid-rows-1 gap-2'>
+  
+  <section id=interestings class="max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+    <h2 class='text-xl sm:text-3xml lg:text-4xml leading-none font-bold text-gray-800 tracking-tight mb-8'>Interestings</h2>
+    
+    <% if @interestings %>
+    <ul class='interestings'>
+    
+    <% @interestings.each do |interesting| %>
+      <li><%= interesting.title %></li>
+    <% end %>
+    
+    </ul>
+    <% end %>
+  
+    <%= link_to 'Add new Interesting', new_standup_interesting_path('today'), {class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6'} %>
+  </section>
+  
+  <section id=events class="max-w-lg bg-yellow-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+    <h2 class='text-xl sm:text-3xml lg:text-4xml leading-none font-bold text-gray-800 tracking-tight mb-8'>Events</h2>
+  
+    <% if @events %>
+    <ul class='events'>
+  
+    <% @events.each do |event| %>
+      <li><%= event.title %></li>
+    <% end %>
+  
+    </ul>
+    <% end %>
+  
+    <%= link_to 'Add new Event', new_event_path, {class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6'} %>
+  </section>
+  
+  <% if @has_moment_of_zen %>
+  <section id=zen class="max-w-lg bg-blue-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+    <h2 class='text-xl sm:text-3xml lg:text-4xml leading-none font-bold text-gray-800 tracking-tight mb-8'>Moment of Zen</h2>
+  
+    <% if @moment_of_zen %>
+    <p class='zen'>All good on zen for now ...</p>
+    <% else %>
+    <%= link_to 'Add Moment of Zen', new_standup_moment_of_zen_path('today'), {class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6'} %>
+    <% end %>
+  </section>
   <% end %>
-
-  <%= link_to 'Add new Interesting', new_standup_interesting_path('today'), {class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6'} %>
-</section>
-
-<section id=events class="max-w-lg bg-yellow-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
-  <h2 class='text-xl sm:text-3xml lg:text-4xml leading-none font-bold text-gray-800 tracking-tight mb-8'>Events</h2>
-
-  <% if @events %>
-  <ul class='events'>
-
-  <% @events.each do |event| %>
-    <li><%= event.title %></li>
-  <% end %>
-
-  </ul>
-  <% end %>
-
-  <%= link_to 'Add new Event', new_event_path, {class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6'} %>
-</section>
-
-<% if @has_moment_of_zen %>
-<section id=zen class="max-w-lg bg-blue-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
-  <h2 class='text-xl sm:text-3xml lg:text-4xml leading-none font-bold text-gray-800 tracking-tight mb-8'>Moment of Zen</h2>
-
-  <% if @moment_of_zen %>
-  <p class='zen'>All good on zen for now ...</p>
-  <% else %>
-  <%= link_to 'Add Moment of Zen', new_standup_moment_of_zen_path('today'), {class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6'} %>
-  <% end %>
-</section>
-<% end %>
-
-<section class='absolute bottom-0 left-0 p-5'>
-  <a href='/standups/today/present' class='inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
-    Allez let's go
-  </a>
-<section>
-
-
+  
+  <section class='absolute bottom-0 left-0 p-5'>
+    <a href='/standups/today/present' class='inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+      Allez let's go
+    </a>
+  <section>
+</div>

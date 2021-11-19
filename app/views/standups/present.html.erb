@@ -8,56 +8,57 @@
   window.moment_of_zen = <%= raw(@moment_of_zen.to_json) %>
 </script>
 
-<h4 class="text-xl sm:text-xl lg:text-3xl leading-none font-extrabold text-gray-900 tracking-tight mb-8">
-  Allez let's go, c'est l'heure
-</h1>
-
-<div id=presentation class='grid grid-flow-col grid-cols-<%= [@interestings, @backmakers, @events, [@moment_of_zen], [@next_week_mc]].filter(&:any?).size %> grid-rows-1 gap-4'>
-
-<% if @interestings.any? %>
-  <section id=interestings class="max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
-    <h2>Interestings</h2>
-    <span><%= @interestings.count %></span>
-  </section>
-<% end %>
-
-<% if @backmakers.any? %>
-  <section id=backmakers class="max-w-lg bg-purple-300 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
-    <h2>La Team</h2>
-    <span><%= @backmakers.count %></span>
-  </section>
-<% end %>
-
-<% if @events.any? %>
-  <section id=events class="max-w-lg bg-yellow-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
-    <h2>Events</h2>
-    <span><%= @events.count %></span>
-  </section>
-<% end %>
-
-<% if @next_week_mc %>
-  <section id=next-mc class="max-w-lg bg-pink-300 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
-    <h2>Nominate our MC</h2>
-  </section>
-<% end %>
-
-<% if @has_moment_of_zen && @moment_of_zen %>
-  <section id=zen class="max-w-lg bg-blue-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
-    <h2>Moment of Zen</h2>
-  </section>
-<% end %>
-
+<div class="pl-2 pr-2">
+  <h4 class="text-xl sm:text-xl lg:text-3xl leading-none font-extrabold text-gray-900 tracking-tight mb-8">
+    Allez let's go, c'est l'heure
+  </h1>
+  
+  <div id=presentation class='grid grid-flow-col grid-cols-<%= [@interestings, @backmakers, @events, [@moment_of_zen], [@next_week_mc]].filter(&:any?).size %> grid-rows-1 gap-4'>
+  
+  <% if @interestings.any? %>
+    <section id=interestings class="max-w-lg bg-green-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+      <h2>Interestings</h2>
+      <span><%= @interestings.count %></span>
+    </section>
+  <% end %>
+  
+  <% if @backmakers.any? %>
+    <section id=backmakers class="max-w-lg bg-purple-300 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+      <h2>La Team</h2>
+      <span><%= @backmakers.count %></span>
+    </section>
+  <% end %>
+  
+  <% if @events.any? %>
+    <section id=events class="max-w-lg bg-yellow-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+      <h2>Events</h2>
+      <span><%= @events.count %></span>
+    </section>
+  <% end %>
+  
+  <% if @next_week_mc %>
+    <section id=next-mc class="max-w-lg bg-pink-300 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+      <h2>Nominate our MC</h2>
+    </section>
+  <% end %>
+  
+  <% if @has_moment_of_zen && @moment_of_zen %>
+    <section id=zen class="max-w-lg bg-blue-200 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+      <h2>Moment of Zen</h2>
+    </section>
+  <% end %>
+  
+  </div>
+  
+  <% unless @backmakers or @interestings %>
+  <span>Nothing to present. Are you <strong>sure</strong> you want to run standup ?<span>
+  <% end %>
+  
+  <section class='spotlight flex flex-col text-center mt-10'></section>
+  
+  <section class='absolute bottom-0 left-0 p-5'>
+    <%= button_to 'Standup is DONE', '/standups/today', method: 'put', form_class: 'inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+  
+  <section>
 </div>
-
-<% unless @backmakers or @interestings %>
-<span>Nothing to present. Are you <strong>sure</strong> you want to run standup ?<span>
-<% end %>
-
-<section class='spotlight flex flex-col text-center mt-10'>
-</section>
-</section>
-
-<section class='absolute bottom-0 left-0 p-5'>
-  <%= button_to 'Standup is DONE', '/standups/today', method: 'put', form_class: 'inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
-<section>
 

@@ -2,18 +2,11 @@
 require 'test_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  def self.options
-    if ENV['CI']
-      { args: %w[headless disable-gpu no-sandbox disable-dev-shm-usage] }
-    else
-      {}
-    end
+  if ENV['CI']
+    driven_by :selenium_chrome_headless, screen_size: [1400, 1400]
+  else
+    driven_by :selenium_chrome, screen_size: [1400, 1400]
   end
-
-  driven_by :selenium,
-            using: :chrome,
-            options: options,
-            screen_size: [1400, 1400]
 
   def visit_safely(url)
     visit url

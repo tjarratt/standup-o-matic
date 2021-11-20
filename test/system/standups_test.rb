@@ -36,17 +36,12 @@ class StandupsTest < ApplicationSystemTestCase
 
   test 'presenting standup for the entire team' do
     add_backmakers('Alice', 'Bob', 'Carol', 'David')
-    add_moment_of_zen('Typical moment of zen', 'https://zombo.com')
-    assert_selector 'p.zen', text: 'All good on zen for now ...'
 
-    click_on_safely 'Allez let\'s go'
+    visit_safely '/standups/today/present'
 
     # this is necessary because the click handlers are added after the document loads
     # ie : the text is in the DOM but the clickhandler not yet installed
     sleep 0.3
-
-    find('section#zen').click
-    assert_selector '.spotlight', text: /Typical moment of zen/
 
     find('section#backmakers').click
 

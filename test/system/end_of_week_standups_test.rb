@@ -5,7 +5,7 @@ class EndOfWeekStandupsTest < ApplicationSystemTestCase
   include ActiveSupport::Testing::TimeHelpers
 
   test 'preparing for a jolly moment of zen on Thursday' do
-    travel_to Date.parse('thursday')
+    Timecop.freeze(Date.parse('thursday'))
 
     add_backmakers('Alice', 'Bob')
     visit_safely '/standups/today'
@@ -17,6 +17,24 @@ class EndOfWeekStandupsTest < ApplicationSystemTestCase
     assert_selector 'section#zen'
   end
 
+  test 'presenting standup with a moment of zen' do
+    Timecop.freeze(Date.parse('friday'))
+
+    add_backmakers('Alice', 'Bob', 'Carol', 'David')
+    add_moment_of_zen('Typical moment of zen', 'https://zombo.com')
+    assert_selector 'p.zen', text: 'All good on zen for now ...'
+
+    click_on_safely 'Allez let\'s go'
+
+    # this is necessary because the click handlers are added after the document loads
+    # ie : the text is in the DOM but the clickhandler not yet installed
+    sleep 0.3
+
+    find('section#zen').click
+    assert_selector '.spotlight', text: /Typical moment of zen/
+  end
+
+
   test 'MCs can be nominated around the end of the week' do
     add_backmakers('Alice', 'Bob')
 
@@ -27,7 +45,7 @@ class EndOfWeekStandupsTest < ApplicationSystemTestCase
     Timecop.freeze(Date.parse('tuesday'))
     visit_safely '/standups/today/present'
     assert_selector 'section#next-mc', count: 0
-    
+
     Timecop.freeze(Date.parse('wednesday'))
     visit_safely '/standups/today/present'
     assert_selector 'section#next-mc', count: 0

@@ -10,6 +10,10 @@ Rails
     resources :backmakers
     resources :events
 
+    resources :emcees do
+      put 'current', action: 'update'
+    end
+
     resources :standups do
       resources :interestings
       resources :moment_of_zen

@@ -1,0 +1,6 @@
+<h3>Our current MC is <%= @mc.name %></h3>
+
+<%= form_for @mc, url: 'emcees/current', method: :put do |f| -%>
+  <%= select_tag 'backmaker_id', options_from_collection_for_select(@backmakers, 'id', 'name') %>
+  <%= f.submit 'Save' %>
+<% end %>

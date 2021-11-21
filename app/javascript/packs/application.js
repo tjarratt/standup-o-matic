@@ -143,6 +143,8 @@ function presentMomentOfZen(content) {
 function present(category, content, property, detailProperty) {
   const root = document.createElement('p');
   const list = document.createElement('ul');
+  list.classList.add('inline-block');
+  list.classList.add('text-left');
   root.appendChild(list);
 
   content.forEach((item, index) => {

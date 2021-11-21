@@ -17,10 +17,9 @@ class StandupsController < ApplicationController
     @interestings = Interesting.where(standup: Standup.last)
     @events = Event.all_for_today
 
-    if ready_for_zen then
-      @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
-      @ready_for_zen = ready_for_zen
-    end
+    return unless ready_for_zen
+    @moment_of_zen = MomentOfZen.where(standup: Standup.last).first
+    @ready_for_zen = true
   end
 
   def present

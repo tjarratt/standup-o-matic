@@ -1,4 +1,4 @@
-<h4 class="text-xl sm:text-xl lg:text-3xl leading-none font-extrabold text-gray-900 tracking-tight mb-8">
+<h4 class="text-xl sm:text-xl lg:text-3xl leading-none font-extrabold text-gray-900 tracking-tight mt-5 mb-5">
   BackMakers
 </h4>
 
@@ -6,12 +6,13 @@
 <p>There's no one here yet 😱</p>
 <% end %>
 
-<ul class="backmakers">
+<ul class="backmakers w-1/3 border-2 border-gray-100 rounded divide-y-2 divide-gray-100">
 <% @backmakers.each do |bm| %>
-<li><%= bm.name %></li>
+  <li class="p-3 hover:bg-indigo-100"><%= bm.name %></li>
 <% end %>
-</ol>
+</ul>
 
 <%= link_to 'Add new BackMaker', 
-              action: 'new' %>
+            { action: 'new' },
+            class: 'mt-5 inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
 
